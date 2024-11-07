@@ -7,7 +7,7 @@
 
 #include "mannaNAUTA_WS2812.h"
 
-mannaNAUTA_WS2812::mannaNAUTA_WS2812(u16 n /*= 8*/, u8 pin_gpio /*= 2*/, u8 chn /*= 0*/, LED_TYPE t /*= TYPE_GRB*/)
+mannaNAUTA_WS2812::mannaNAUTA_WS2812(u16 n /*= 25*/, u8 pin_gpio /*= 47*/, u8 chn /*= 1*/, LED_TYPE t /*= TYPE_GRB*/)
 {
 	ledCounts = n;
 	pin = pin_gpio;

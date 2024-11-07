@@ -72,7 +72,7 @@ protected:
 	rmt_obj_t* rmt_send = NULL;
 
 public:
-	mannaNAUTA_WS2812(u16 n = 8, u8 pin_gpio = 2, u8 chn = 0, LED_TYPE t = TYPE_GRB);
+	mannaNAUTA_WS2812(u16 n = 25, u8 pin_gpio = 47 , u8 chn = 1, LED_TYPE t = TYPE_GRB);
 
 	bool begin();
 	void setLedCount(u16 n);
