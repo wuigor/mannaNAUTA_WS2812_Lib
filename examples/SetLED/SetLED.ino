@@ -5,8 +5,8 @@
 * are predefined for the mannaNAUTA board, there is no need to change them.
 *
 * #define LEDS_COUNT  25
-* #define LEDS_PIN	  47
-* #define CHANNEL		  1
+* #define LEDS_PIN    47
+* #define CHANNEL     1
 */
 
 mannaNAUTA_WS2812 strip = mannaNAUTA_WS2812(LEDS_COUNT, LEDS_PIN, CHANNEL, TYPE_GRB);
