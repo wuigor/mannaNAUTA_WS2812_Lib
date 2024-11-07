@@ -29,9 +29,9 @@ https://github.com/Freenove/Freenove_WS2812_Lib_for_ESP32
 * Total number of LEDs (LED_COUNT), Output pin (LEDS_PIN), and channel (CHANNEL)
 * are predefined for the mannaNAUTA board, there is no need to change them.
 *
-* #define LEDS_COUNT  25
-* #define LEDS_PIN	  47
-* #define CHANNEL		  1
+* #define LEDS_COUNT  	25
+* #define LEDS_PIN	47
+* #define CHANNEL	1
 */
 
 mannaNAUTA_WS2812 strip = mannaNAUTA_WS2812(LEDS_COUNT, LEDS_PIN, CHANNEL, TYPE_GRB);
@@ -126,8 +126,8 @@ Total number of LEDs (LED_COUNT), Output pin (LEDS_PIN), and channel (CHANNEL) a
 If necessary, you can change them:
 ```C
 #define LEDS_COUNT  25
-#define LEDS_PIN	47
-#define CHANNEL		1
+#define LEDS_PIN    47
+#define CHANNEL     1
 ```
 
 * Construction. </br> Create a strip object.
@@ -183,4 +183,5 @@ strip.writeSymbol('@', color);
 ```C
 strip.writeEmotion('=]', COLOR);
 ```
+
 
