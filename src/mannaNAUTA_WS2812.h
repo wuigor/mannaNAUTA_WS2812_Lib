@@ -2,11 +2,11 @@
  * WS2812 Lib for mannaNAUTA - ESP32
  * Author	mannaNAUTA
  * Company	mannaTEAM
- * Date		2024-02-19
+ * Date		2024-11-08
  */
 
-#ifndef _mannaNAUTA_WS2812_h
-#define _mannaNAUTA_WS2812_h
+#ifndef _MANNANAUTA_WS2812_h
+#define _MANNANAUTA_WS2812_h
 
 #if defined(ARDUINO) && ARDUINO >= 100
 #include <Arduino.h>
@@ -33,10 +33,6 @@
 
 #include "esp32-hal.h"
 
-typedef unsigned char u8;
-typedef unsigned short u16;
-typedef unsigned long u32;
-
 //Modify the definition to expand the number of leds
 //Supports a maximum of 1100 leds
 #define NR_OF_LEDS   256  
@@ -57,55 +53,54 @@ class mannaNAUTA_WS2812
 {
 protected:
 	
-	u16 ledCounts;
-	u8 pin;
-	u8 br;
-	u8 rmt_chn;
+	uint16_t ledCounts;
+	uint8_t pin;
+	uint8_t br;
+	uint8_t rmt_chn;
 	
-	u8 rOffset;
-	u8 gOffset;
-	u8 bOffset;
+	uint8_t rOffset;
+	uint8_t gOffset;
+	uint8_t bOffset;
 	
 	float realTick;
 	rmt_reserve_memsize_t rmt_mem;
 	rmt_data_t led_data[NR_OF_ALL_BITS];
-	rmt_obj_t* rmt_send = NULL;
 
 public:
-	mannaNAUTA_WS2812(u16 n = 25, u8 pin_gpio = 47 , u8 chn = 1, LED_TYPE t = TYPE_GRB);
+	mannaNAUTA_WS2812(uint16_t n = 8, uint8_t pin_gpio = 2, uint8_t chn = 0, LED_TYPE t = TYPE_GRB);
 
 	bool begin();
-	void setLedCount(u16 n);
+	void setLedCount(uint16_t n);
 	void setLedType(LED_TYPE t);
-	void setBrightness(u8 brightness);
+	void setBrightness(uint8_t brightness);
 
 	void clear();
 
-	void writeWord(u8 word, u32 rgb);
-	void writeWord(u8 word, u8 r, u8 g, u8 b);
+	void writeWord(uint8_t word, uint32_t rgb);
+	void writeWord(uint8_t word, uint8_t r, uint8_t g, uint8_t b);
 
-	void writeNumber(u8 number, u32 rgb);
-	void writeNumber(u8 number, u8 r, u8 g, u8 b);
+	void writeNumber(uint8_t number, uint32_t rgb);
+	void writeNumber(uint8_t number, uint8_t r, uint8_t g, uint8_t b);
 
-	void writeSymbol(u8 symbol, u32 rgb);
-	void writeSymbol(u8 symbol, u8 r, u8 g, u8 b);
+	void writeSymbol(uint8_t symbol, uint32_t rgb);
+	void writeSymbol(uint8_t symbol, uint8_t r, uint8_t g, uint8_t b);
 
-	void writeEmotion(u32 emotion, u32 rgb);
-	void writeEmotion(u32 emotion, u8 r, u8 g, u8 b);
+	void writeEmotion(uint32_t emotion, uint32_t rgb);
+	void writeEmotion(uint32_t emotion, uint8_t r, uint8_t g, uint8_t b);
 
-	esp_err_t set_pixel(int index, u8 r, u8 g, u8 b);
+	esp_err_t set_pixel(int index, uint8_t r, uint8_t g, uint8_t b);
 	
-	esp_err_t setLedColorData(int index, u32 rgb);
-	esp_err_t setLedColorData(int index, u8 r, u8 g, u8 b);
+	esp_err_t setLedColorData(int index, uint32_t rgb);
+	esp_err_t setLedColorData(int index, uint8_t r, uint8_t g, uint8_t b);
 
-	esp_err_t setLedColor(int index, u32 rgb);
-	esp_err_t setLedColor(int index, u8 r, u8 g, u8 b);
+	esp_err_t setLedColor(int index, uint32_t rgb);
+	esp_err_t setLedColor(int index, uint8_t r, uint8_t g, uint8_t b);
 
-	esp_err_t setAllLedsColorData(u32 rgb);
-	esp_err_t setAllLedsColorData(u8 r, u8 g, u8 b);
+	esp_err_t setAllLedsColorData(uint32_t rgb);
+	esp_err_t setAllLedsColorData(uint8_t r, uint8_t g, uint8_t b);
 
-	esp_err_t setAllLedsColor(u32 rgb);
-	esp_err_t setAllLedsColor(u8 r, u8 g, u8 b);
+	esp_err_t setAllLedsColor(uint32_t rgb);
+	esp_err_t setAllLedsColor(uint8_t r, uint8_t g, uint8_t b);
 
 	esp_err_t show();
 
