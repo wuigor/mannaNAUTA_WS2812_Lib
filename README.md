@@ -13,12 +13,6 @@ WS2812 LEDs are individually addressable RGB LEDs, allowing for a wide range of 
 * Display the following emotions on a strip of 25 LEDs: =], =[, =O, =S.
 * Compatible with mannaNAUTA board.
 
-Based on the example program "led_strip" in IDF-SDK and lib "WS2812 Lib For ESP32" in Freenove. The source code repository is here:
-
-https://github.com/espressif/esp-idf/tree/master/examples/peripherals/rmt/led_strip
-
-https://github.com/Freenove/Freenove_WS2812_Lib_for_ESP32
-
 ## Examples:
 * Turning on the first and last LED of the strip.
 
@@ -184,4 +178,9 @@ strip.writeSymbol('@', color);
 strip.writeEmotion('=]', COLOR);
 ```
 
+## -----
+Based on the example program "led_strip" in IDF-SDK and lib "WS2812 Lib For ESP32" in Freenove. The source code repository is here:
 
+https://github.com/espressif/esp-idf/tree/master/examples/peripherals/rmt/led_strip
+
+https://github.com/Freenove/Freenove_WS2812_Lib_for_ESP32
