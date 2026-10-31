@@ -12,54 +12,31 @@ mannaNAUTA_WS2812::mannaNAUTA_WS2812(uint16_t n /*= 25*/, uint8_t pin_gpio /*= 4
 	ledCounts = n;
 	pin = pin_gpio;
 	rmt_chn = chn;
-	rmt_mem = RMT_MEM_NUM_BLOCKS_1;
+	rmt_mem = RMT_MEM_64;
+	rmt = NULL;
 	br = 255;
 	setLedType(t);
 }
 
 bool mannaNAUTA_WS2812::begin()
-{	
-	switch(rmt_chn){
-		case 0:
-			rmt_mem=RMT_MEM_NUM_BLOCKS_1;
-			break;
-		case 1:
-			rmt_mem=RMT_MEM_NUM_BLOCKS_2;
-			break;
-		case 2:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 2
-			rmt_mem=RMT_MEM_NUM_BLOCKS_3;
-		#endif
-			break;
-		case 3:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 2
-			rmt_mem=RMT_MEM_NUM_BLOCKS_4;
-		#endif
-			break;
-		case 4:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 4
-			rmt_mem=RMT_MEM_NUM_BLOCKS_5;
-		#endif
-			break;
-		case 5:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 4
-			rmt_mem=RMT_MEM_NUM_BLOCKS_6;
-		#endif
-			break;
-		case 6:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 4
-			rmt_mem=RMT_MEM_NUM_BLOCKS_7;
-		#endif
-			break;
-		case 7:
-		#if SOC_RMT_TX_CANDIDATES_PER_GROUP > 4
-			rmt_mem=RMT_MEM_NUM_BLOCKS_8;
-		#endif
-			break;	
-		default:
-			rmt_mem=RMT_MEM_NUM_BLOCKS_1;break;
+{
+	// Arduino ESP32 core 2.0.17 allocates the RMT channel internally.
+	// Keep rmt_chn in the constructor for API compatibility.
+	(void)rmt_chn;
+	if (rmt != NULL) {
+		rmtDeinit(rmt);
+		rmt = NULL;
 	}
-	if(rmtInit(pin, RMT_TX_MODE, rmt_mem, 10000000)==false){
+	rmt = rmtInit(pin, RMT_TX_MODE, rmt_mem);
+	if (rmt == NULL) {
+		return false;
+	}
+
+	// A 100 ns tick matches the 10 MHz RMT clock used by library version 2.x.
+	realTick = rmtSetTick(rmt, 100.0f);
+	if (realTick <= 0.0f) {
+		rmtDeinit(rmt);
+		rmt = NULL;
 		return false;
 	}
 	for(int i=0;i<ledCounts;i++)
@@ -170,7 +147,10 @@ esp_err_t mannaNAUTA_WS2812::setAllLedsColor(uint8_t r, uint8_t g, uint8_t b)
 
 esp_err_t mannaNAUTA_WS2812::show()
 {
-	return rmtWrite(pin, led_data, ledCounts*24, RMT_WAIT_FOR_EVER);
+	if (rmt == NULL) {
+		return ESP_ERR_INVALID_STATE;
+	}
+	return rmtWriteBlocking(rmt, led_data, ledCounts * 24) ? ESP_OK : ESP_FAIL;
 }
 
 uint32_t mannaNAUTA_WS2812::Wheel(byte pos)

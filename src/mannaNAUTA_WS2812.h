@@ -64,6 +64,7 @@ protected:
 	
 	float realTick;
 	rmt_reserve_memsize_t rmt_mem;
+	rmt_obj_t *rmt;
 	rmt_data_t led_data[NR_OF_ALL_BITS];
 
 public:
@@ -109,4 +110,3 @@ public:
 };
 
 #endif
-

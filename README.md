@@ -1,5 +1,8 @@
 # mannaNAUTA WS2812 Addressable LED Library
 
+> Version 1.0.0 is intended for ESP32-S3 projects using Arduino ESP32 core
+> 2.0.17. For Arduino ESP32 core 3.x, use the latest library release.
+
 This library provides an easy-to-use interface for controlling WS2812 addressable LEDs. 
 
 WS2812 LEDs are individually addressable RGB LEDs, allowing for a wide range of colorful and dynamic lighting effects.
